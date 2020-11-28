@@ -1,6 +1,20 @@
 const findAll = async(connection) => {
-    const pessoas = await connection('pessoas').select('*')
-    return pessoas
+    const offset = params.currentPage * params.pageSize
+    const pageSize = params.pageSize
+    const count = await connection('pessoas').count('id as total')
+    const total = count[0].total
+    const totalPages = Math.ceil(total / pageSize)
+
+    const pessoas = await connection('pessoas').select('*').limit(pageSize).offset(offset)
+    
+    return {
+        data: pessoas,
+        pagination: {
+            pages: totalPages,
+            pageSize,
+            currentPage: parseInt(params.currentPage)
+        }
+    }
 }
 
 const findById = async(connection, idPessoa) => {
@@ -11,6 +25,11 @@ const findById = async(connection, idPessoa) => {
         return {}
     }
 
+}
+
+const findByName = async(connection, nomePessoa) => {
+    const pessoa = await connection('pessoas').where({nome: nomePessoa}).select('*')
+    return pessoa
 }
 
 const deleteOne = async(connection, idPessoa) => {
@@ -35,6 +54,7 @@ const update = async(connection, idPessoa, data) => {
 module.exports = {
     findAll,
     findById,
+    findByName,
     deleteOne,
     create,
     update
