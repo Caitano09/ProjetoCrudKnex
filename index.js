@@ -10,7 +10,7 @@ const knex = require('knex')({
         host: 'localhost',
         user: 'root',
         password: '',
-        database: 'cadastroKnex'
+        database: 'cadastro'
     }
 }, app.listen(port, () => console.log('CRUD listening on port: ' + port)))
 
