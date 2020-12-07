@@ -6,7 +6,7 @@
 </h1>
 
 <p align="center">
-This project use a simple registration of people for apply CRUD with Knex <br>        
+This project use a simple registration of people for apply CRUD with Knex </p>        
 
 <p align="center">
   <a href="https://opensource.org/licenses/MIT">
